@@ -6,8 +6,8 @@ import plotly.graph_objects as go
 
 # --- CONFIGURAÇÃO DA PÁGINA ---
 st.set_page_config(page_title="Dashboard PRF + INMET", layout="wide")
-st.title("🛣️ Análise de Acidentes: Validação de Hipóteses (PB)")
-st.markdown("Dashboard interativo cruzando dados da **PRF** e **INMET** (via Acumulado Diário e Interpolação Espacial).")
+st.title("🛣️ Análise de Acidentes(PB)")
+st.markdown("Dashboard interativo cruzando dados da **PRF** (2020 ~ 2025) **INMET** (via Acumulado Diário e Interpolação Espacial).")
 
 # --- TRATAMENTO DE DADOS ---
 @st.cache_data
@@ -181,10 +181,10 @@ st.divider()
 # ==========================================
 # 📊 VALIDAÇÃO DAS HIPÓTESES
 # ==========================================
-st.markdown("## 🎯 Validação das Hipóteses de Pesquisa")
+#st.markdown("## 🎯 Validação das Hipóteses de Pesquisa")
 
 # --- HIPÓTESE 1: FATOR TURNO ---
-st.markdown("### 🌙 Hipótese 1: Severidade Noturna e Trechos Críticos")
+st.markdown("### Severidade Noturna e Trechos Críticos")
 col_h1a, col_h1b = st.columns(2)
 with col_h1a:
     df_fatais_graves = df_filtrado[df_filtrado['classificacao_acidente'] != 'Sem Vítimas']
@@ -204,7 +204,7 @@ with col_h1b:
 
 
 # --- HIPÓTESE 2: FATOR HUMANO ---
-st.markdown("### 🍻 Hipótese 2: O Fator Humano (Álcool e Imprudência)")
+st.markdown("### O Fator mais comum de acidentes")
 col_h2a, col_h2b = st.columns(2)
 
 with col_h2a:
@@ -225,7 +225,7 @@ with col_h2b:
 
 
 # --- HIPÓTESE 3: SAZONALIDADE (COM HEATMAP) ---
-st.markdown("### 🏖️ Hipótese 3: Sazonalidade (Fins de Semana e Horários)")
+st.markdown("### Sazonalidade (dias da Semana e Horários)")
 col_h3a, col_h3b = st.columns(2)
 with col_h3a:
     dia_semana_count = df_filtrado.groupby('dia_semana').size().reset_index(name='Total')
@@ -252,7 +252,7 @@ st.plotly_chart(fig_heat, use_container_width=True)
 
 
 # --- HIPÓTESE 4: O RECORTE CLIMÁTICO (INMET) ---
-st.markdown("### 🌧️ Hipótese 4: O Recorte Climático (Cruzamento INMET Diário via Interpolação)")
+st.markdown("### O Recorte Climático (Cruzamento INMET Diário via Interpolação)")
 col_h4a, col_h4b = st.columns(2)
 with col_h4a:
     impacto_chuva = df_filtrado.groupby(['condicao_clima', 'classificacao_acidente']).size().reset_index(name='Quantidade')
